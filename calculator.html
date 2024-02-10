@@ -15,7 +15,7 @@
         <div class="container">
             <div class="header__wrapper">
                 <a href="./index.html" class="logo">
-                    <img src="./assets/img/logo.png" alt="logo">
+                    <img id="logo" src="./assets/img/logo.png" alt="logo">
                 </a>
 
                 <nav>
@@ -274,40 +274,40 @@
                 </h2>
 
                 <div class="trial__block">
-                    <form>
+                    <form id="trialForm">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="trial__block-wrapper trial__block-wrapper-inputs">
-                                    <input type="text" placeholder="Ваше имя*" required>
-                                    <input type="text" placeholder="Компания*" required>
-                                    <input type="text" placeholder="Телефон*" required>
+                                    <input type="text" name="full_name"  placeholder="Ваше имя*" required>
+                                    <input type="text" name="company" placeholder="Компания*" required>
+                                    <input type="text" name="phone" placeholder="Телефон*" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="trial__block-wrapper trial__block-wrapper-labels">
                                     <h3 class="trial__block-title">Сколько у вас исполнителей?*</h3>
                                     <label>
-                                        <input type="radio" value="До 10" name="967843" required>
+                                        <input type="radio" value="До 10" name="comanda" required>
                                         <div class="trial__block-indicator"></div>
                                         <span>До 10</span>
                                     </label>
                                     <label>
-                                        <input type="radio" value="От 11 до 50" name="967843" required>
+                                        <input type="radio" value="От 11 до 50" name="comanda" required>
                                         <div class="trial__block-indicator"></div>
                                         <span>От 11 до 50</span>
                                     </label>
                                     <label>
-                                        <input type="radio" value="От 51 до 200" name="967843" required>
+                                        <input type="radio" value="От 51 до 200" name="comanda" required>
                                         <div class="trial__block-indicator"></div>
                                         <span>От 51 до 200</span>
                                     </label>
                                     <label>
-                                        <input type="radio" value="От 201 и более" name="967843" required>
+                                        <input type="radio" value="От 201 и более" name="comanda" required>
                                         <div class="trial__block-indicator"></div>
                                         <span>От 201 и более</span>
                                     </label>
                                     <label>
-                                        <input type="radio" value="Я сам исполнитель" name="967843" required>
+                                        <input type="radio" value="Я сам исполнитель" name="comanda" required>
                                         <div class="trial__block-indicator"></div>
                                         <span>Я сам исполнитель</span>
                                     </label>
@@ -316,8 +316,7 @@
                             </div>
                         </div>
                         <button type="submit" class="button button-blue trial__block-btn">Отправить</button>
-                        <p class="trial__block-policy">Отправляя форму, вы соглашаетесь с <a href="#">политикой
-                                конфиденциальности</a></p>
+                        <p class="trial__block-policy">Отправляя форму, вы соглашаетесь с <a href="#">политикой конфиденциальности</a></p>
                     </form>
                 </div>
             </div>
@@ -325,7 +324,37 @@
 
 
     </main>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          var form = document.getElementById('trialForm');
+      
+          form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Formun varsayılan davranışını engelle
+      
+            // Verileri al
+            var formData = new FormData(form);
+      
+            // POST isteği gönder
+            fetch('http://localhost:4003/api/contacts', {
+              method: 'POST',
+              body: formData
+            })
+              .then(function(response) {
+                if (response.ok) {
+                  // İstek başarıyla tamamlandığında yapılacak işlemler
+                 window.location.reload()
+                } else {
+                  // İstek başarısız olduğunda yapılacak işlemler
+                  console.log('İstek başarısız oldu');
+                }
+              })
+              .catch(function(error) {
+                // Hata durumunda yapılacak işlemler
+                console.log('Hata oluştu', error);
+              });
+          });
+        });
+      </script>
     <footer>
         <div class="footer">
             <div class="container">
@@ -373,14 +402,14 @@
                             <li>
                                 <span>Контакты</span>
                             </li>
-                            <li>
+                            <li class="address">
                                 адрес компании
                             </li>
                             <li>
-                                <a href="tel:+ХХХХХХХХХХХХХХХ">+ХХХХХХХХХХХХХХХ</a>
+                                <a  class="phone"  href="tel:+ХХХХХХХХХХХХХХХ">+ХХХХХХХХХХХХХХХ</a>
                             </li>
                             <li>
-                                <a href="mailto:mail@mail.com">mail@mail.com</a>
+                                <a  class="email" href="mailto:mail@mail.com">mail@mail.com</a>
                             </li>
                         </ul>
                     </div>
@@ -391,7 +420,7 @@
                             </li>
                             <li>
                                 <div class="social">
-                                    <a href="#">
+                                    <a href="#" class="instagram">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             viewBox="0 0 20 20" fill="none">
                                             <g clip-path="url(#clip0_5_1233)">
@@ -412,7 +441,7 @@
                                             </defs>
                                         </svg>
                                     </a>
-                                    <a href="#">
+                                    <a href="#" class="facebook">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             viewBox="0 0 20 20" fill="none">
                                             <g clip-path="url(#clip0_5_1237)">
@@ -427,7 +456,7 @@
                                             </defs>
                                         </svg>
                                     </a>
-                                    <a href="#">
+                                    <a href="#" class="twitter">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             viewBox="0 0 20 20" fill="none">
                                             <g clip-path="url(#clip0_5_1241)">
@@ -442,7 +471,7 @@
                                             </defs>
                                         </svg>
                                     </a>
-                                    <a href="#">
+                                    <a href="#"  class="youtube">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             viewBox="0 0 20 20" fill="none">
                                             <g clip-path="url(#clip0_5_1245)">
@@ -466,7 +495,30 @@
                 </div>
             </div>
         </div>
-
+        <script>
+            // Verileri almak için bir AJAX isteği yapın
+            fetch('http://localhost:4003/api/companies')
+              .then(response => response.json())
+              .then(companies => {
+                if (companies.length > 0) {
+                  var imageLink = companies[0].instagram
+                  var linkElement = document.querySelector('.instagram');
+                  linkElement.href = imageLink;
+                  document.querySelector('.facebook').href=companies[0].facebook
+                  document.querySelector('.twitter').href=companies[0].twitter
+                  document.querySelector('.youtube').href=companies[0].youtube
+                  document.querySelector('.phone').href="tel:"+companies[0].phone
+                  document.querySelector('.phone').innerHTML=companies[0].phone
+                  document.querySelector('.email').href="mailto:"+companies[0].email
+                  document.querySelector('.email').innerHTML=companies[0].email
+                  document.querySelector('.address').innerHTML=companies[0].address
+                  document.querySelector('#logo').src=companies[0].image
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+          </script>
         <div class="footer__descr">
             <div class="container">
                 © ООО «Название компании» 2023

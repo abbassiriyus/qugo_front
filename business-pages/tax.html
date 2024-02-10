@@ -13,7 +13,7 @@
         <div class="container">
             <div class="header__wrapper">
                 <a href="../index.html" class="logo">
-                    <img src="../assets/img/logo.png" alt="logo">
+                    <img src="../assets/img/logo.png" id="logo" alt="logo">
                 </a>
 
                 <nav>
@@ -276,40 +276,40 @@
                 </h2>
 
                 <div class="trial__block">
-                    <form>
+                    <form id="trialForm">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="trial__block-wrapper trial__block-wrapper-inputs">
-                                    <input type="text" placeholder="Ваше имя*" required>
-                                    <input type="text" placeholder="Компания*" required>
-                                    <input type="text" placeholder="Телефон*" required>
+                                    <input type="text" name="full_name"  placeholder="Ваше имя*" required>
+                                    <input type="text" name="company" placeholder="Компания*" required>
+                                    <input type="text" name="phone" placeholder="Телефон*" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="trial__block-wrapper trial__block-wrapper-labels">
                                     <h3 class="trial__block-title">Сколько у вас исполнителей?*</h3>
                                     <label>
-                                        <input type="radio" value="До 10" name="967843" required>
+                                        <input type="radio" value="До 10" name="comanda" required>
                                         <div class="trial__block-indicator"></div>
                                         <span>До 10</span>
                                     </label>
                                     <label>
-                                        <input type="radio" value="От 11 до 50" name="967843" required>
+                                        <input type="radio" value="От 11 до 50" name="comanda" required>
                                         <div class="trial__block-indicator"></div>
                                         <span>От 11 до 50</span>
                                     </label>
                                     <label>
-                                        <input type="radio" value="От 51 до 200" name="967843" required>
+                                        <input type="radio" value="От 51 до 200" name="comanda" required>
                                         <div class="trial__block-indicator"></div>
                                         <span>От 51 до 200</span>
                                     </label>
                                     <label>
-                                        <input type="radio" value="От 201 и более" name="967843" required>
+                                        <input type="radio" value="От 201 и более" name="comanda" required>
                                         <div class="trial__block-indicator"></div>
                                         <span>От 201 и более</span>
                                     </label>
                                     <label>
-                                        <input type="radio" value="Я сам исполнитель" name="967843" required>
+                                        <input type="radio" value="Я сам исполнитель" name="comanda" required>
                                         <div class="trial__block-indicator"></div>
                                         <span>Я сам исполнитель</span>
                                     </label>
@@ -323,7 +323,37 @@
                 </div>
             </div>
         </section>
-
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              var form = document.getElementById('trialForm');
+          
+              form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Formun varsayılan davranışını engelle
+          
+                // Verileri al
+                var formData = new FormData(form);
+          
+                // POST isteği gönder
+                fetch('http://localhost:4003/api/contacts', {
+                  method: 'POST',
+                  body: formData
+                })
+                  .then(function(response) {
+                    if (response.ok) {
+                      // İstek başarıyla tamamlandığında yapılacak işlemler
+                     window.location.reload()
+                    } else {
+                      // İstek başarısız olduğunda yapılacak işlemler
+                      console.log('İstek başarısız oldu');
+                    }
+                  })
+                  .catch(function(error) {
+                    // Hata durumunda yapılacak işlemler
+                    console.log('Hata oluştu', error);
+                  });
+              });
+            });
+          </script>
         <section class="about">
             <div class="container">
                 <h2 class="subtitle">О компании</h2>
@@ -389,14 +419,14 @@
                             <li>
                                 <span>Контакты</span>
                             </li>
-                            <li>
+                            <li class="address">
                                 адрес компании
                             </li>
                             <li>
-                                <a href="tel:+ХХХХХХХХХХХХХХХ">+ХХХХХХХХХХХХХХХ</a>
+                                <a class="phone" href="tel:+ХХХХХХХХХХХХХХХ">+ХХХХХХХХХХХХХХХ</a>
                             </li>
                             <li>
-                                <a href="mailto:mail@mail.com">mail@mail.com</a>
+                                <a class="email" href="mailto:mail@mail.com">mail@mail.com</a>
                             </li>
                         </ul>
                     </div>
@@ -406,8 +436,9 @@
                                 <span>Наши социцальные сети</span>
                             </li>
                             <li>
+                                
                                 <div class="social">
-                                    <a href="#">
+                                    <a class="instagram" href="#">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                             <g clip-path="url(#clip0_5_1233)">
                                             <path d="M11.9141 10C11.9141 11.0571 11.0571 11.9141 10 11.9141C8.94287 11.9141 8.08594 11.0571 8.08594 10C8.08594 8.94287 8.94287 8.08594 10 8.08594C11.0571 8.08594 11.9141 8.94287 11.9141 10Z" fill="#262626"/>
@@ -421,7 +452,7 @@
                                             </defs>
                                         </svg>
                                     </a>
-                                    <a href="#">
+                                    <a class="facebook" href="#">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                             <g clip-path="url(#clip0_5_1237)">
                                             <path d="M10 0C8.02219 0 6.08879 0.58649 4.4443 1.6853C2.79981 2.78412 1.51809 4.3459 0.761209 6.17317C0.00433282 8.00043 -0.193701 10.0111 0.192152 11.9509C0.578004 13.8907 1.53041 15.6725 2.92894 17.0711C4.32746 18.4696 6.10929 19.422 8.0491 19.8079C9.98891 20.1937 11.9996 19.9957 13.8268 19.2388C15.6541 18.4819 17.2159 17.2002 18.3147 15.5557C19.4135 13.9112 20 11.9778 20 10C20 7.34784 18.9464 4.8043 17.0711 2.92893C15.1957 1.05357 12.6522 0 10 0ZM12.8447 6.50789C12.8447 6.69605 12.7658 6.77105 12.5816 6.77105C12.2276 6.77105 11.8737 6.77105 11.5211 6.78553C11.1684 6.8 10.9763 6.96053 10.9763 7.32895C10.9684 7.72368 10.9763 8.11053 10.9763 8.51316H12.4908C12.7066 8.51316 12.7803 8.58684 12.7803 8.80395C12.7803 9.33026 12.7803 9.85921 12.7803 10.3908C12.7803 10.6053 12.7118 10.6724 12.4947 10.6737H10.9632V14.9553C10.9632 15.1842 10.8921 15.2566 10.6658 15.2566H9.01843C8.81974 15.2566 8.74211 15.1789 8.74211 14.9803V10.6803H7.43422C7.22895 10.6803 7.15527 10.6053 7.15527 10.3987C7.15527 9.86623 7.15527 9.33421 7.15527 8.80263C7.15527 8.59737 7.2329 8.51974 7.43553 8.51974H8.74211V7.36842C8.7266 6.85126 8.85069 6.33948 9.10132 5.88684C9.36187 5.42988 9.77937 5.08297 10.2763 4.91053C10.5988 4.79318 10.9397 4.73436 11.2829 4.73684H12.5763C12.7618 4.73684 12.8395 4.81842 12.8395 5C12.8461 5.50658 12.8461 6.00789 12.8447 6.50789Z" fill="#262626"/>
@@ -433,7 +464,7 @@
                                             </defs>
                                         </svg>
                                     </a>
-                                    <a href="#">
+                                    <a class="twitter" href="#">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                             <g clip-path="url(#clip0_5_1241)">
                                             <path d="M10 0C4.48602 0 0 4.48602 0 10C0 15.5136 4.48602 20 10 20C15.5136 20 20 15.5136 20 10C20 4.48602 15.5144 0 10 0ZM14.461 7.71127C14.4655 7.81036 14.4679 7.91025 14.4679 8.01015C14.4679 11.0517 12.1534 14.5577 7.91871 14.5577C6.61887 14.5577 5.40884 14.1779 4.39056 13.5245C4.57061 13.5459 4.75389 13.5568 4.93958 13.5568C6.01829 13.5568 7.01039 13.1886 7.79828 12.5715C6.79127 12.553 5.94095 11.8875 5.64811 10.9728C5.78829 10.9994 5.93289 11.0143 6.08072 11.0143C6.29058 11.0143 6.4944 10.9869 6.68734 10.9341C5.63441 10.723 4.8413 9.79296 4.8413 8.67719C4.8413 8.66753 4.8413 8.65745 4.8417 8.64819C5.15186 8.82019 5.50673 8.92411 5.88375 8.93579C5.26666 8.52372 4.86023 7.81882 4.86023 7.02046C4.86023 6.59832 4.97341 6.20277 5.17159 5.8628C6.30629 7.2557 8.0029 8.17167 9.91541 8.26835C9.87594 8.09957 9.8562 7.92435 9.8562 7.74349C9.8562 6.47265 10.8866 5.44187 12.1574 5.44187C12.8196 5.44187 13.417 5.72142 13.8375 6.16853C14.3624 6.06541 14.8538 5.87449 15.2997 5.60984C15.1265 6.14759 14.7627 6.59832 14.2862 6.88351C14.7523 6.82792 15.197 6.70466 15.6082 6.52139C15.3013 6.9822 14.911 7.38782 14.461 7.71127Z" fill="#262626"/>
@@ -445,7 +476,7 @@
                                             </defs>
                                         </svg>
                                     </a>
-                                    <a href="#">
+                                    <a class="youtube" href="#">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                             <g clip-path="url(#clip0_5_1245)">
                                             <path d="M8.61316 11.6133L11.3868 10.0041L8.61316 8.38696V11.6133Z" fill="#262626"/>
@@ -466,6 +497,30 @@
             </div>
         </div>
 
+        <script>
+            // Verileri almak için bir AJAX isteği yapın
+            fetch('http://localhost:4003/api/companies')
+              .then(response => response.json())
+              .then(companies => {
+                if (companies.length > 0) {
+                  var imageLink = companies[0].instagram
+                  var linkElement = document.querySelector('.instagram');
+                  linkElement.href = imageLink;
+                  document.querySelector('.facebook').href=companies[0].facebook
+                  document.querySelector('.twitter').href=companies[0].twitter
+                  document.querySelector('.youtube').href=companies[0].youtube
+                  document.querySelector('.phone').href="tel:"+companies[0].phone
+                  document.querySelector('.phone').innerHTML=companies[0].phone
+                  document.querySelector('.email').href="mailto:"+companies[0].email
+                  document.querySelector('.email').innerHTML=companies[0].email
+                  document.querySelector('.address').innerHTML=companies[0].address
+                  document.querySelector('#logo').src=companies[0].image
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+          </script>
         <div class="footer__descr">
            <div class="container">
                 © ООО «Название компании» 2023
