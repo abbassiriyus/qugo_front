@@ -139,7 +139,7 @@
                             var formData = new FormData(form);
                       
                             // POST isteği gönder
-                            fetch('http://localhost:4003/api/contacts', {
+                            fetch('https://servise-clent.onrender.com/api/contacts', {
                               method: 'POST',
                               body: formData
                             })
@@ -240,7 +240,7 @@
                 var formData = new FormData(form);
           
                 // POST isteği gönder
-                fetch('http://localhost:4003/api/contacts', {
+                fetch('https://servise-clent.onrender.com/api/contacts', {
                   method: 'POST',
                   body: formData
                 })
@@ -415,7 +415,7 @@
                 var formData = new FormData(form);
           
                 // POST isteği gönder
-                fetch('http://localhost:4003/api/contacts', {
+                fetch('https://servise-clent.onrender.com/api/contacts', {
                   method: 'POST',
                   body: formData
                 })
@@ -564,7 +564,7 @@
 
         <script>
             // Verileri almak için bir AJAX isteği yapın
-            fetch('http://localhost:4003/api/companies')
+            fetch('https://servise-clent.onrender.com/api/companies')
               .then(response => response.json())
               .then(companies => {
                 if (companies.length > 0) {
@@ -593,6 +593,44 @@
         </div>
     </footer>
 
+    <script>
+        // fetch('https://servise-clent.onrender.com/verify', {
+        //     method: 'POST',
+        //     body: JSON.stringify({
+        //         name: 'User 1'
+        //     })
+        // }).then(res => {
+        //     return res.json()
+        // })
+        // .then(data => console.log(data))
+        // .then(error => console.log("Error", error))
+
+        var submitButton = document.getElementById('submitButton');
+
+function jonibek() {
+    var phoneInput = document.getElementById('phoneInput');
+    var phone = phoneInput.value;
+console.log(phone);
+    fetch('https://servise-clent.onrender.com/api/verify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body:JSON.stringify({phone: phone })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        // Javobni qabul qilganingizda kerakli ishlarni bajarish
+      })
+      .catch(error => {
+        console.error(error);
+        // Xatolikni qabul qilganingizda kerakli ishlarni bajarish
+      });
+  
+}
+
+    </script>
     <div class="modal">
         <div class="overlay"></div>
         <div class="modal__block" id="sign-in">
@@ -602,9 +640,9 @@
             </p>
 
             <form class="modal__sign-in">
-                <input placeholder="Телефон*" required type="tel">
-                <button class="button button-blue" type="submit">Отправить</button>
-                <a href="#" class="modal__block-link" id="modal-sign-up">Перейти к регистрации</a>
+                <input placeholder="Телефон*" id="phoneInput" name="phone" required type="tel">
+                <button id="submitButton"  onclick="jonibek()" class="button button-blue" value="Submit" type="button">Отправить</button>
+                <a class="modal__block-link" id="modal-sign-up">Перейти к регистрации</a>
             </form>
         </div>
 
