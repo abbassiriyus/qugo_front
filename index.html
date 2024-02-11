@@ -638,14 +638,81 @@ console.log(phone);
             <p class="modal__block-descr">
                 Введите ваш номер телефона, на который поступит СМС с кодом подтверждения
             </p>
-
-            <form class="modal__sign-in">
-                <input placeholder="Телефон*" id="phoneInput" name="phone" required type="tel">
-                <button id="submitButton"  onclick="jonibek()" class="button button-blue" value="Submit" type="button">Отправить</button>
-                <a class="modal__block-link" id="modal-sign-up">Перейти к регистрации</a>
+            <form class="modal__sign-in" id="signInForm">
+                <input placeholder="Телефон*" name="phone"  id="phoneInput" required type="tel">
+                <input placeholder="Телефон*" name="verify"  id="verifyInput"  type="tel">
+                <button class="button button-blue" type="submit">Отправить</button>
+                <a href="#" class="modal__block-link" id="modal-sign-up">Перейти к регистрации</a>
             </form>
         </div>
+        <style>
+            #verifyInput{
+                display: none;
+            }
+        </style>
+<script>
+    var display=0
 
+document.getElementById('signInForm').addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const phone = document.getElementById('phoneInput').value;
+  const code = document.getElementById('verifyInput').value;
+
+
+  try {
+if(display===0){
+console.log(display);
+    const response = await fetch('http://localhost:4003/api/verify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ phone }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      document.querySelector("#verifyInput").style.display="block"
+      document.getElementById('phoneInput').disabled=true
+      display=1
+      document.getElementById('verifyInput').required=true
+      
+    } else {
+      console.error('Error:', response.status);
+    }
+}else{
+    const response = await fetch('http://localhost:4003/api/verify/check', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ phone,code }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      localStorage.setItem('token',data.token);
+if(data.user){
+    localStorage.setItem('user',JSON.stringify(data.user));
+    window.location='/profile-pages/profile-info'
+}else{
+ localStorage.setItem('user_phone',JSON.stringify({phone}));
+ swapModal(signUpLink, signInLink);
+
+}  
+      console.log('Response data saved to local storage:', data);
+    
+    } else {
+      console.error('Error:', response.status);
+    }
+
+
+}
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});
+</script>
         <div class="modal__block" id="sign-up">
             <h3 class="modal__block-title">Регистрация</h3>
 

@@ -39,6 +39,15 @@ const checkRegistration = document.getElementsByName('to-be');
 const nextRegistration = document.querySelector('#registration-next');
 registrationChoose.forEach((el, i) => {
     el.addEventListener('click', () => {
+        if(localStorage.getItem("user_phone")){
+           var local=JSON.parse(localStorage.getItem("user_phone")) 
+            local.position=i
+            localStorage.setItem("user_phone",JSON.stringify(local)) 
+        }else{
+            var local={}
+            local.position=i
+            localStorage.setItem("user_phone",JSON.stringify(local))
+        }
         if(i == 0){
             nextRegistration.href = "./registration-pages/executor-step1.html";
         }else if(i == 1){
