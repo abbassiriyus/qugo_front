@@ -103,7 +103,7 @@
         <section>
             <div class="container trial__container">
                 <div class="trial__block">
-                    <form>
+                    <form onsubmit="secondpage()">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="trial__block-wrapper trial__block-wrapper-labels executer__labels" id="radio_form">
@@ -112,13 +112,13 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="trial__block-wrapper trial__block-wrapper-inputs executer__input">
-                                    <input type="text" placeholder="Укажите свой ИНН" required>
+                                    <input type="text" id="inn" placeholder="Укажите свой ИНН" required>
                                 </div>
                             </div>
                         </div>
                         <div class="executer__btns">
                             <a href="#" class="button button-white">Предыдущий шаг</a>
-                            <a href="./executor-step2.html" type="button" class="button button-blue">Следующий шаг</a>
+                            <a  onclick="secondpage()" type="submit" class="button button-blue">Следующий шаг</a>
                         </div>
                     </form>
                 </div>
@@ -131,7 +131,7 @@
     .then(data => {
       data.map(item=>{
         document.querySelector("#radio_form").innerHTML+=` <label>
-                                        <input type="radio" value="${item.id}" name="bir" required>
+                                        <input type="radio" onclick="changeRadio(${item.id})" value="${item.id}" name="bir" required>
                                         <div class="trial__block-indicator"></div>
                                         <span>${item.title}</span>
                                     </label>`
@@ -144,7 +144,18 @@
 // ./executor-step2.html
 fetchLisoData() 
 
-
+function changeRadio(params) {
+    var getlocal=JSON.parse(localStorage.getItem("user_phone"))
+    getlocal.litso=params
+    localStorage.setItem("user_phone",JSON.stringify(getlocal))
+}
+function secondpage(){
+    console.log("lee");
+    var getlocal=JSON.parse(localStorage.getItem("user_phone"))
+    getlocal.inn=document.querySelector('#inn').value
+    localStorage.setItem("user_phone",JSON.stringify(getlocal))
+window.location="/registration-pages/executor-step2.html"
+}
 </script>
 
     </main>

@@ -104,7 +104,7 @@
             <div class="container trial__container">
 
                 <div class="trial__block">
-                    <form>
+                    <form  >
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="trial__block-wrapper trial__block-wrapper-labels executer__labels">
@@ -115,20 +115,94 @@
 
                             <div class="col-md-12">
                                 <div class="trial__block-wrapper trial__block-wrapper-inputs executer__input">
-                                    <input type="text" placeholder="Имя" required>
-                                    <input type="text" placeholder="Номер телефона" required>
+                                    <input type="text" id="name_12" placeholder="Имя" required>
+                                    <input type="text" id="phoneInput" placeholder="Номер телефона" required>
+                                    <input type="text" id="verifyInput" style="display: none;" placeholder="Номер телефона">
                                 </div>
                             </div>
                         </div>
                         <div class="executer__btns executer__btns-one">
-                            <a href="./executor-step3.html" class="button button-blue">Получить код</a>
+                            <button id="signInForm" class="button button-blue">Получить код</button>
                         </div>
                         <p class="modal__sign-up-descr">Регистрируясь в сервисе, вы принимаете условия <a href="#">пользовательского соглашения</a> и <a href="#">политики о данных</a></p>
                     </form>
                 </div>
             </div>
         </section>
-
+        <script>
+            var display=0
+        
+        document.getElementById('signInForm').addEventListener('click', async (event) => {
+          event.preventDefault();
+        
+          const phone = document.getElementById('phoneInput').value;
+          const code = document.getElementById('verifyInput').value;
+        
+        
+          try {
+        if(display===0){
+      
+            const response = await fetch('http://localhost:4003/api/verify', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ phone }),
+            });
+            if (response.ok) {
+              const data = await response.json();
+              document.querySelector("#verifyInput").style.display="block"
+              document.getElementById('phoneInput').disabled=true
+              display=1
+              document.getElementById('verifyInput').required=true
+            } else {
+              console.error('Error:', response.status);
+            }
+        }else{
+            const response = await fetch('http://localhost:4003/api/verify/check', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ phone,code }),
+            });
+        
+            if (response.ok) {
+              const data = await response.json();
+              localStorage.setItem('token',data.token);
+          if(data.user){
+            localStorage.setItem('user',JSON.stringify(data.user));
+            window.location='/profile-pages/profile-info.html'
+           }else{
+           var a=JSON.parse(localStorage.getItem('user_phone'))
+             const response = await fetch('http://localhost:4003/api/users', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                 phone,
+                 name:document.querySelector("#name_12").value,
+                 position:a.position,
+                 inn:a.inn,
+                 litso:a.litso
+                }),
+            });
+            window.location='/profile-pages/profile-info.html'
+        }  
+              console.log('Response data saved to local storage:', data);
+            
+            } else {
+              console.error('Error:', response.status);
+            }
+        
+        
+        }
+          } catch (error) {
+            console.error('Error:', error);
+          }
+        });
+        </script>
 
     </main>
 
