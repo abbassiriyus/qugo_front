@@ -325,7 +325,7 @@
                 var formData = new FormData(form);
           
                 // POST isteği gönder
-                fetch('https://servise-clent.onrender.com/api/contacts', {
+                fetch('http://localhost:4003/api/contacts', {
                   method: 'POST',
                   body: formData
                 })
@@ -490,7 +490,7 @@
 
         <script>
             // Verileri almak için bir AJAX isteği yapın
-            fetch('https://servise-clent.onrender.com/api/companies')
+            fetch('http://localhost:4003/api/companies')
               .then(response => response.json())
               .then(companies => {
                 if (companies.length > 0) {

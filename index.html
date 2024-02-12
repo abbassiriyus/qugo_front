@@ -139,7 +139,7 @@
                             var formData = new FormData(form);
                       
                             // POST isteği gönder
-                            fetch('https://servise-clent.onrender.com/api/contacts', {
+                            fetch('http://localhost:4003/api/contacts', {
                               method: 'POST',
                               body: formData
                             })
@@ -240,7 +240,7 @@
                 var formData = new FormData(form);
           
                 // POST isteği gönder
-                fetch('https://servise-clent.onrender.com/api/contacts', {
+                fetch('http://localhost:4003/api/contacts', {
                   method: 'POST',
                   body: formData
                 })
@@ -415,7 +415,7 @@
                 var formData = new FormData(form);
           
                 // POST isteği gönder
-                fetch('https://servise-clent.onrender.com/api/contacts', {
+                fetch('http://localhost:4003/api/contacts', {
                   method: 'POST',
                   body: formData
                 })
@@ -564,7 +564,7 @@
 
         <script>
             // Verileri almak için bir AJAX isteği yapın
-            fetch('https://servise-clent.onrender.com/api/companies')
+            fetch('http://localhost:4003/api/companies')
               .then(response => response.json())
               .then(companies => {
                 if (companies.length > 0) {
@@ -594,7 +594,7 @@
     </footer>
 
     <script>
-        // fetch('https://servise-clent.onrender.com/verify', {
+        // fetch('http://localhost:4003/verify', {
         //     method: 'POST',
         //     body: JSON.stringify({
         //         name: 'User 1'
@@ -611,7 +611,7 @@ function jonibek() {
     var phoneInput = document.getElementById('phoneInput');
     var phone = phoneInput.value;
 console.log(phone);
-    fetch('https://servise-clent.onrender.com/api/verify', {
+    fetch('http://localhost:4003/api/verify', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -663,7 +663,7 @@ document.getElementById('signInForm').addEventListener('submit', async (event) =
   try {
 if(display===0){
 console.log(display);
-    const response = await fetch('https://servise-clent.onrender.com/api/verify', {
+    const response = await fetch('http://localhost:4003/api/verify', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -681,7 +681,7 @@ console.log(display);
       console.error('Error:', response.status);
     }
 }else{
-    const response = await fetch('https://servise-clent.onrender.com/api/verify/check', {
+    const response = await fetch('http://localhost:4003/api/verify/check', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

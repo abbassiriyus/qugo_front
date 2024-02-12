@@ -126,7 +126,7 @@
         </section>
 <script>
     function fetchLisoData() {
-  return fetch('https://servise-clent.onrender.com/api/liso')
+  return fetch('http://localhost:4003/api/liso')
     .then(response => response.json())
     .then(data => {
       data.map(item=>{
@@ -287,7 +287,7 @@ window.location="/registration-pages/executor-step2.html"
 
         <script>
             // Verileri almak için bir AJAX isteği yapın
-            fetch('https://servise-clent.onrender.com/api/companies')
+            fetch('http://localhost:4003/api/companies')
               .then(response => response.json())
               .then(companies => {
                 if (companies.length > 0) {

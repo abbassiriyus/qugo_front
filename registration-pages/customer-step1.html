@@ -265,7 +265,7 @@
 
         <script>
             // Verileri almak için bir AJAX isteği yapın
-            fetch('https://servise-clent.onrender.com/api/companies')
+            fetch('http://localhost:4003/api/companies')
               .then(response => response.json())
               .then(companies => {
                 if (companies.length > 0) {
