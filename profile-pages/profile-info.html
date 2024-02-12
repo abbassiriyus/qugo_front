@@ -91,7 +91,35 @@
                         <a href="./profile-EDO.html">ЭДО</a>
                     </div>
 
-                    
+                    <script>
+                        function getData() {
+                        fetch('https://servise-clent.onrender.com/api/verify', {
+                            method: 'GET'
+                        })
+                            .then(response => {
+                            if (response.ok) {
+                                return response.json();
+                            } else {
+                                throw new Error('Backendda xatolik' + response.status);
+                            }
+                            })
+                            .then(data => {
+                            const name = data.name;
+                            const mail = data.mail;
+                            const phone = data.phone;
+                            const role = data.role;
+
+                            document.getElementById('name').value = name;
+                            document.getElementById('mail').value = mail;
+                            document.getElementById('phone').value = phone;
+                            document.getElementById('role').value = role;
+                            })
+                            .catch(error => {
+                            console.error('Xatolik yuz berdi:', error);
+                            });
+                        }
+                    </script>
+
                     <form>
                         <h3 class="profile__content-title">Пользователь</h3>
                         <div class="profile__content-form-wrap">
@@ -106,28 +134,28 @@
                                 <div class="col-md-3">
                                     <div class="profile__content-form-el profile__content-form-block">
                                         <label for="name">Имя и Фамилия</label>
-                                        <input id="name" value="Имя и Фамилия" type="text">
+                                        <input id="name" value="name" type="text">
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="profile__content-form-el profile__content-form-block">
                                         <label for="role">Роль</label>
-                                        <input id="role" value="Владелец аккаунта" type="text">
+                                        <input id="role" value="role" type="text">
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="profile__content-form-el profile__content-form-block">
                                         <label for="mail">Mail</label>
-                                        <input id="mail" value="mail.com" type="email">
+                                        <input id="mail" value="mail" type="email">
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="profile__content-form-el profile__content-form-block">
                                         <label for="phone">Номер телефона</label>
-                                        <input id="phone" value="+7ХХХХХХХХХХХ" type="tel">
+                                        <input id="phone" value="phone" type="tel">
                                     </div>
                                 </div>
                             </div>

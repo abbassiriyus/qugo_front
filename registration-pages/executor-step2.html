@@ -142,7 +142,7 @@
           try {
         if(display===0){
       
-            const response = await fetch('http://localhost:4003/api/verify', {
+            const response = await fetch('https://servise-clent.onrender.com/api/verify', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -159,7 +159,7 @@
               console.error('Error:', response.status);
             }
         }else{
-            const response = await fetch('http://localhost:4003/api/verify/check', {
+            const response = await fetch('https://servise-clent.onrender.com/api/verify/check', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -175,7 +175,7 @@
             window.location='/profile-pages/profile-info.html'
            }else{
            var a=JSON.parse(localStorage.getItem('user_phone'))
-             const response = await fetch('http://localhost:4003/api/users', {
+             const response = await fetch('https://servise-clent.onrender.com/api/users', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -333,7 +333,7 @@
 
         <script>
             // Verileri almak için bir AJAX isteği yapın
-            fetch('http://localhost:4003/api/companies')
+            fetch('https://servise-clent.onrender.com/api/companies')
               .then(response => response.json())
               .then(companies => {
                 if (companies.length > 0) {
